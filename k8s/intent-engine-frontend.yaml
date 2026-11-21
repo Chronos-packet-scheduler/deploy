@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intent-engine-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: intent-engine-frontend
+  template:
+    metadata:
+      labels:
+        app: intent-engine-frontend
+    spec:
+      imagePullSecrets:
+        - name: ghcr
+      containers:
+        - name: intent-engine-frontend
+          image: ghcr.io/chronos-packet-scheduler/intent-engine-frontend:latest
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: intent-engine-frontend
+spec:
+  selector:
+    app: intent-engine-frontend
+  ports:
+    - port: 3000

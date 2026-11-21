@@ -1,0 +1,24 @@
+# Runs the whole system from the images published to ghcr.io.
+#   docker compose up -d                          # everything except the data plane
+#   docker compose --profile data-plane up -d     # also attach XDP inside the Docker VM
+name: chronos
+
+services:
+  control-plane:
+    image: ghcr.io/chronos-packet-scheduler/control-plane:latest
+
+  intent-engine-backend:
+    image: ghcr.io/chronos-packet-scheduler/intent-engine-backend:latest
+
+  intent-engine-frontend:
+    image: ghcr.io/chronos-packet-scheduler/intent-engine-frontend:latest
+    depends_on:
+      - intent-engine-backend
+
+  data-plane:
+    image: ghcr.io/chronos-packet-scheduler/data-plane:latest
+    profiles: [data-plane]
+    privileged: true
+    network_mode: host
+    environment:
+      IFACE: eth0

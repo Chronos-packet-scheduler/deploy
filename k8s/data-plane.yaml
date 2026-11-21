@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: data-plane
+spec:
+  selector:
+    matchLabels:
+      app: data-plane
+  template:
+    metadata:
+      labels:
+        app: data-plane
+    spec:
+      hostNetwork: true
+      imagePullSecrets:
+        - name: ghcr
+      containers:
+        - name: data-plane
+          image: ghcr.io/chronos-packet-scheduler/data-plane:latest
+          imagePullPolicy: Always
+          env:
+            - name: IFACE
+              value: eth0
+          securityContext:
+            privileged: true

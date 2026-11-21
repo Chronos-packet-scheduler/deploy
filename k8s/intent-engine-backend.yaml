@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intent-engine-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: intent-engine-backend
+  template:
+    metadata:
+      labels:
+        app: intent-engine-backend
+    spec:
+      imagePullSecrets:
+        - name: ghcr
+      containers:
+        - name: intent-engine-backend
+          image: ghcr.io/chronos-packet-scheduler/intent-engine-backend:latest
+          imagePullPolicy: Always
