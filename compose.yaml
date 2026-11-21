@@ -6,12 +6,18 @@ name: chronos
 services:
   control-plane:
     image: ghcr.io/chronos-packet-scheduler/control-plane:latest
+    ports:
+      - "8080:8080"
 
   intent-engine-backend:
     image: ghcr.io/chronos-packet-scheduler/intent-engine-backend:latest
+    ports:
+      - "8000:8000"
 
   intent-engine-frontend:
     image: ghcr.io/chronos-packet-scheduler/intent-engine-frontend:latest
+    ports:
+      - "3000:3000"
     depends_on:
       - intent-engine-backend
 
