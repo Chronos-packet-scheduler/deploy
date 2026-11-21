@@ -23,3 +23,11 @@ spec:
               value: eth0
           securityContext:
             privileged: true
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9445
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 9445
