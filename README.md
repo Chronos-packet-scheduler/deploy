@@ -2,6 +2,14 @@
 
 Configuration to run the whole Chronos system from the images published to `ghcr.io/chronos-packet-scheduler`. Works on [Rancher Desktop](https://rancherdesktop.io) (container engine: `dockerd (moby)`, Kubernetes enabled).
 
+# Universal (other than Rancher Desktop)
+
+Create k3d cluster:
+
+```
+k3d cluster create CHRONOS --servers 4 --agents 6
+```
+
 ## Registry access
 
 If the packages are private, log in once. Requires personal access token (classic) with the `read:packages` scope
